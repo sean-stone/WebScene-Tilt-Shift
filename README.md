@@ -1,6 +1,8 @@
 # WebScene-Tilt-Shift
 Prototype app of adding tilt shift (depth of field) to webscenes.
 
+Access the application [here](https://appsstage.esriuk.com/app/tiltshift/1/wmt/view/706012bcac8142dd9c8b56c2e66de411/index.html).
+
 How this application works (in summary):
 
 | z-index           | [CSS   Blurred](https://urldefense.proofpoint.com/v2/url?u=https-3A__developer.mozilla.org_en-2DUS_docs_Web_CSS_filter-2Dfunction_blur&d=DwMFAw&c=n6-cguzQvX_tUIrZOS_4Og&r=uGvVWFM6ogj2CnnHac3n5Q&m=GPO6JStcYnysaBvlljt7xvWqteg9tlCdFCUvJ7TcVMQ&s=59lpS2tiHzvT8fZnZ61njn3GpVJoeqWKAf1SYAgitK4&e=) | [Webscene   clipDistane](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) | [qualityProfile](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#qualityProfile) |
