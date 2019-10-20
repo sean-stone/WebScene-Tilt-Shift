@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>DOF</title>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css" />
+    <link rel="stylesheet"
+        href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.2.5/css/calcite-web.min.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css" />
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.2.5/js/calcite-web.min.js">
+    </script>
+
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <script src="js/main.js"></script>
+
+</head>
+
+<body>
+    <div id="sidePanel">
+        <div id="load" class="item">
+            <img src="images/folder-icon.svg" style="width:16px" />
+        </div>
+
+        <div id="fov-select" class="item">
+            <span class="flaticon-field-of-view"></span>
+            <div id="fov-slider" class="item-open">
+                <form class="calcite-slider">
+                    <label>
+                        <input id="fov" type="range" min="10" max="140" value="80" step="1" aria-valuemin="0" aria-valuemax="100"
+                            aria-valuenow="50">
+                    </label>
+                </form>
+            </div>
+        </div>
+
+        <div id="focus" class="item">
+            <span class="flaticon-focus"></span>
+            <div id="focus-slider-menu" class="item-open">
+                <div id="sliderDiv"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="loadWebmap">
+
+        <p>Add a webmap id in the text box below.</p>
+
+        <div class="input-group">
+            <input id="webmapid" class="input-group-input" type="text" placeholder="Type/paste id here">
+            <span class="input-group-button">
+                <button id="load-webmap" class="btn">Load</button>
+            </span>
+        </div>
+
+        <p>8ede93ea9d8d48bc8cdcbea775936a13 - Stylised webscene</p>
+        <p>19dcff93eeb64f208d09d328656dd492 - Mix</p>
+        <p>7328c006ef8d4f5fb1477d3c8cb9b1ec - Realistic scene (Montreal)</p>
+        <p>e6dc7ee33f904fb3b7249207a3c3ff39 - Realistic scene 2 (Brest)</p>
+
+        <button class="btn modifier-class" id="close-webmap-modal">Close</button>
+
+    </div>
+
+    <div id="blankDiv"></div>
+    <div id="frontDiv"></div>
+    <div id="mainFocusedDiv"></div>
+    <div id="viewDivc"></div>
+    <div id="viewDivb"></div>
+
+    <div id="mainSlider">
+        <!-- <input type="checkbox">Hide display<br> -->
+
+        <p>Blur amount (px)</p>
+        <input id="blur" type="number" value="3">
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+html,
+body,
+#mainFocusedDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+}
+
+#blankDiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10000;
+}
+
+#blankDiv .esri-view-surface {
+    opacity: 0;
+}
+
+#dijit_Dialog_0 {
+    z-index: 100000000 !important;
+}
+
+#viewDivb {
+    position: absolute;
+    top: 0px;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -100;
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+    pointer-events: all;
+}
+
+#viewDivc {
+    position: absolute;
+    top: 0px;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -50;
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+    pointer-events: all;
+}
+
+
+#frontDiv {
+    position: absolute;
+    top: 0px;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+    pointer-events: all;
+}
+
+#mainSlider {
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+    position: absolute;
+    background-color: white;
+    z-index: 1000000;
+    width: 200px;
+    bottom: 50px;
+    left: 50px;
+    padding: 10px;
+    opacity: 0.9;
+}
+
+#mainSlider:hover {
+    opacity: 1;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 2px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: rgb(49, 49, 49);
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: rgb(49, 49, 49);
+    cursor: pointer;
+}
+
+#sidePanel {
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+    width: 40px;
+    top: 30px;
+    right: 30px;
+    background: white;
+    margin: 5px;
+    position: absolute;
+    z-index: 100000;
+    opacity: 0.9;
+}
+
+.item {
+    padding-left: 10px;
+    padding-right: 13px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 1px;
+    color: rgb(37, 37, 37);
+}
+
+hr {
+    border-color: white;
+    border-width: 1px;
+    margin: 0px;
+}
+
+.item:hover {
+    -webkit-animation-name: example;
+    /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s;
+    /* Safari 4.0 - 8.0 */
+    animation-name: example;
+    animation-duration: 1s;
+    background-color: white;
+    cursor: pointer;
+}
+
+.item-open {
+    width: 170px;
+    padding: 10px;
+    height: 20px;
+    position: absolute;
+    right: 40px;
+    background-color: white;
+    border-color: black;
+    border-width: 4px;
+}
+
+#focus-slider-menu {
+    top: 100px;
+}
+
+#fov-slider {
+    top: 50px;
+}
+
+#loadWebmap {
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+    position: absolute;
+    width: 50%;
+    height: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 10px;
+    z-index: 100000000;
+    display: none;
+}
+
+#loadWebmap p {
+    margin-bottom: 0.5rem;
+}
+
+.input-group {
+    padding-bottom: 10px;
+}
+
+#close-webmap-modal {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    margin: 10px;
+}
+
+#webmapid-input {
+    margin: 10px;
+    width: calc(100% - 25px);
+}
