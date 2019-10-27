@@ -2,13 +2,19 @@ require([
     "esri/views/SceneView",
     'esri/WebScene',
     "esri/core/watchUtils",
-    "esri/widgets/Home"
-], function (SceneView, WebScene, watchUtils, Home) {
+    "esri/portal/PortalItem",
+    "esri/widgets/Home",
+    "./js/modules/ui.js"
+
+], function (SceneView, WebScene, watchUtils, PortalItem, Home, ui) {
     /*
         In summary, all I'm doing here is using the "clip" to cut a webscene up. Then applying a css blur to the scene to filter it.
 
         This is purely a proof of concept application for doing tilt sift.
     */
+
+
+    ui.disableLoadButton();
 
     // default values
     var near = 400; // distance of near clip
@@ -299,6 +305,17 @@ require([
     document.getElementById("close-webmap-modal").addEventListener("click", closeModal);
     document.getElementById("load-webmap").addEventListener("click", loadWebmapid);
 
+
+    $("#webmapid").on("change paste keyup", function () {
+        const text = $(this).val()
+        if (text.length === 32) {
+            ui.enableLoadButton();
+        } else {
+            ui.disableLoadButton();
+        }
+    });
+
+
     // functions for listeners
 
     function openModal() {
@@ -308,18 +325,31 @@ require([
     function loadWebmapid() {
         var id = document.getElementById("webmapid").value
 
-        scene = new WebScene({
-            portalItem: {
-                id: id
-            }
+        var item = new PortalItem({
+            id: id
         });
 
-        // repoint scene to views
-        front.map = scene;
-        view.map = scene;
-        back.map = scene;
-        backStaggered.map = scene;
-        blank.map = scene;
+        item.load().then(function () {
+            if (item.type === "Web Scene") {
+                ui.successLoadButton()
+
+                scene = new WebScene({
+                    portalItem: {
+                        id: id
+                    }
+                });
+
+                // repoint scene to views
+                front.map = scene;
+                view.map = scene;
+                back.map = scene;
+                backStaggered.map = scene;
+                blank.map = scene;
+            } else {
+                ui.errorLoadButton()
+            };
+
+        })
     };
 
     function closeModal() {

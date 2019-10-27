@@ -218,3 +218,7 @@ hr {
     margin: 10px;
     width: calc(100% - 25px);
 }
+
+form {
+    margin: -7px;
+}
