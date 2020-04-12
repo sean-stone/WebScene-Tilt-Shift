@@ -6,7 +6,7 @@ require([
     "esri/widgets/Home",
     "./js/modules/ui.js"
 
-], function (SceneView, WebScene, watchUtils, PortalItem, Home, ui) {
+], function(SceneView, WebScene, watchUtils, PortalItem, Home, ui) {
     /*
         In summary, all I'm doing here is using the "clip" to cut a webscene up. Then applying a css blur to the scene to filter it.
 
@@ -24,25 +24,6 @@ require([
     var scene = new WebScene({
         portalItem: {
             id: "8ede93ea9d8d48bc8cdcbea775936a13"
-        }
-    });
-
-    // Creating views.
-    // Look at this in the future -> it's currently opacity: 0 and purely here for the attribution and ui elements. 
-    var blank = new SceneView({
-        container: "blankDiv",
-        map: scene,
-        qualityProfile: "low",
-        environment: {
-            starsEnabled: false,
-            atmosphereEnabled: false,
-            lighting: {
-                cameraTrackingEnabled: false,
-                directShadowsEnabled: false,
-            }
-        },
-        constraints: {
-            snapToZoom: false
         }
     });
 
@@ -168,19 +149,19 @@ require([
     });
 
     // Add the home button to the top left corner of the view
-    blank.ui.add(homeBtn, "top-left");
+    // blank.ui.add(homeBtn, "top-left");
 
     // sync the views (this is taken from the sync views sample in js api)
-    var synchronizeView = function (view, others) {
+    var synchronizeView = function(view, others) {
         others = Array.isArray(others) ? others : [others];
 
         var viewpointWatchHandle;
         var viewStationaryHandle;
         var otherInteractHandlers;
         var scheduleId;
-        var clear = function () {
+        var clear = function() {
             if (otherInteractHandlers) {
-                otherInteractHandlers.forEach(function (handle) {
+                otherInteractHandlers.forEach(function(handle) {
                     handle.remove();
                 });
             }
@@ -190,7 +171,7 @@ require([
             otherInteractHandlers = viewpointWatchHandle = viewStationaryHandle = scheduleId = null;
         };
 
-        var interactWatcher = view.watch("interacting,animation", function (
+        var interactWatcher = view.watch("interacting,animation", function(
             newValue
         ) {
             if (!newValue) {
@@ -201,23 +182,23 @@ require([
             }
 
             // start updating the other views at the next frame
-            scheduleId = setTimeout(function () {
+            scheduleId = setTimeout(function() {
                 scheduleId = null;
-                viewpointWatchHandle = view.watch("viewpoint", function (
+                viewpointWatchHandle = view.watch("viewpoint", function(
                     newValue
                 ) {
-                    others.forEach(function (otherView) {
+                    others.forEach(function(otherView) {
                         otherView.viewpoint = newValue;
                     });
                 });
             }, 0);
 
             // stop as soon as another view starts interacting, like if the user starts panning
-            otherInteractHandlers = others.map(function (otherView) {
+            otherInteractHandlers = others.map(function(otherView) {
                 return watchUtils.watch(
                     otherView,
                     "interacting,animation",
-                    function (value) {
+                    function(value) {
                         if (value) {
                             clear();
                         }
@@ -234,25 +215,25 @@ require([
         });
 
         return {
-            remove: function () {
-                this.remove = function () {};
+            remove: function() {
+                this.remove = function() {};
                 clear();
                 interactWatcher.remove();
             }
         };
     };
 
-    var synchronizeViews = function (views) {
-        var handles = views.map(function (view, idx, views) {
+    var synchronizeViews = function(views) {
+        var handles = views.map(function(view, idx, views) {
             var others = views.concat();
             others.splice(idx, 1);
             return synchronizeView(view, others);
         });
 
         return {
-            remove: function () {
-                this.remove = function () {};
-                handles.forEach(function (h) {
+            remove: function() {
+                this.remove = function() {};
+                handles.forEach(function(h) {
                     h.remove();
                 });
                 handles = null;
@@ -261,16 +242,16 @@ require([
     };
 
     // bind the views
-    synchronizeViews([blank, view, back, backStaggered, front]);
+    synchronizeViews([view, back, backStaggered, front]);
 
     // creating slider
-    $(function () {
+    $(function() {
         $("#sliderDiv").slider({
             range: true,
             min: 11,
             max: 3000,
             values: [400, 1000],
-            slide: function (event, ui) {
+            slide: function(event, ui) {
                 console.log("sliding")
                 updateDOF(ui.values[0], ui.values[1])
                 $("#amount").val(ui.values[0] + " - " + ui.values[1]);
@@ -281,15 +262,15 @@ require([
     $('#fov-slider').hide();
     $('#focus-slider-menu').hide();
 
-    $('#fov-select').hover(function () {
+    $('#fov-select').hover(function() {
         $('#fov-slider').show();
-    }, function () {
+    }, function() {
         $('#fov-slider').hide();
     });
 
-    $('#focus').hover(function () {
+    $('#focus').hover(function() {
         $('#focus-slider-menu').show();
-    }, function () {
+    }, function() {
         $('#focus-slider-menu').hide();
     });
 
@@ -306,7 +287,7 @@ require([
     document.getElementById("load-webmap").addEventListener("click", loadWebmapid);
 
 
-    $("#webmapid").on("change paste keyup", function () {
+    $("#webmapid").on("change paste keyup", function() {
         const text = $(this).val()
         if (text.length === 32) {
             ui.enableLoadButton();
@@ -329,7 +310,7 @@ require([
             id: id
         });
 
-        item.load().then(function () {
+        item.load().then(function() {
             if (item.type === "Web Scene") {
                 ui.successLoadButton()
 
@@ -344,7 +325,6 @@ require([
                 view.map = scene;
                 back.map = scene;
                 backStaggered.map = scene;
-                blank.map = scene;
             } else {
                 ui.errorLoadButton()
             };
@@ -368,9 +348,6 @@ require([
 
         view.constraints.clipDistance.near = (min) - 10;
         view.constraints.clipDistance.far = (max) + 10;
-
-        blank.constraints.clipDistance.near = (min) - 10;
-        blank.constraints.clipDistance.far = (max) + 10;
     };
 
     function updateBlur() {
@@ -393,6 +370,5 @@ require([
         view.camera = newCam;
         back.camera = newCam;
         backStaggered.camera = newCam;
-        blank.camera = newCam;
     };
 });
