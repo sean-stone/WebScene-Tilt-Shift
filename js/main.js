@@ -11,12 +11,6 @@ require([
     "./js/modules/ui.js"
 
 ], function(SceneView, WebScene, watchUtils, PortalItem, Home, ui) {
-    /*
-        In summary, all I'm doing here is using the "clip" to cut a webscene up. Then applying a css blur to the scene to filter it.
-
-        This is purely a proof of concept application for doing tilt sift.
-    */
-
 
     ui.disableLoadButton();
 
@@ -32,10 +26,9 @@ require([
     });
 
 
-    var view, front, back, backStaggered
+    var view, front, back, backStaggered;
 
-    front = createSceneView("frontDiv", "medium");
-
+    front = createSceneView("frontDiv", "high");
 
     front.when(function() {
         view = createSceneView("mainFocusedDiv", "high");
@@ -93,8 +86,6 @@ require([
     };
 
     function loaded() {
-        // set the blur and clip
-        updateBlur();
         updateDOF(near, far);
 
         // remove ui elements (we dont need them...)
@@ -211,9 +202,9 @@ require([
                 max: 3000,
                 values: [400, 1000],
                 slide: function(event, ui) {
-                    console.log("sliding")
-                    updateDOF(ui.values[0], ui.values[1])
-                    $("#amount").val(ui.values[0] + " - " + ui.values[1]);
+                    if (document.getElementById("blurCheckbox").checked) {
+                        updateDOF(ui.values[0], ui.values[1]);
+                    }
                 }
             });
         });
@@ -240,6 +231,7 @@ require([
         document.getElementById("load").addEventListener("click", openModal);
         document.getElementById("close-webmap-modal").addEventListener("click", closeModal);
         document.getElementById("load-webmap").addEventListener("click", loadWebmapid);
+        document.getElementById("blurCheckbox").addEventListener("click", toggleActive);
 
 
         $("#webmapid").on("change paste keyup", function() {
@@ -295,7 +287,7 @@ require([
             front.constraints.clipDistance.far = min;
 
             back.constraints.clipDistance.near = (max + max / 2);
-            back.constraints.clipDistance.far = (max * 20);
+            back.constraints.clipDistance.far = (max * 200);
 
             backStaggered.constraints.clipDistance.near = max;
             backStaggered.constraints.clipDistance.far = (max + max / 2) + 50;
@@ -306,15 +298,15 @@ require([
         };
 
         function updateBlur() {
-            var a = document.getElementById("viewDivb");
-            var b = document.getElementById("frontDiv");
-            var c = document.getElementById("viewDivc");
+            if (document.getElementById("blurCheckbox").checked) {
+                var a = document.getElementById("viewDivb");
+                var b = document.getElementById("frontDiv");
+                var c = document.getElementById("viewDivc");
 
-
-            a.style.filter = "blur(" + document.getElementById("blur").value + "px)";
-            b.style.filter = "blur(" + (document.getElementById("blur").value) / 2 + "px)";
-            c.style.filter = "blur(" + (document.getElementById("blur").value) / 2 + "px)";
-
+                a.style.filter = "blur(" + document.getElementById("blur").value + "px)";
+                b.style.filter = "blur(" + (document.getElementById("blur").value) / 2 + "px)";
+                c.style.filter = "blur(" + (document.getElementById("blur").value) / 2 + "px)";
+            }
         };
 
         function fovUpdate() {
@@ -326,5 +318,42 @@ require([
             back.camera = newCam;
             backStaggered.camera = newCam;
         };
-    }
+
+
+
+        // set the blur and clip
+        updateBlur();
+
+        function toggleActive() {
+            if (document.getElementById("blurCheckbox").checked) {
+                updateBlur();
+                updateDOF($('#sliderDiv').slider("values")[0], $('#sliderDiv').slider("values")[1])
+            } else {
+                enableSingleView();
+            }
+        }
+
+        function enableSingleView() {
+            var a = document.getElementById("viewDivb");
+            var b = document.getElementById("frontDiv");
+            var c = document.getElementById("viewDivc");
+
+            a.style.filter = "blur(0px)";
+            b.style.filter = "blur(0px)";
+            c.style.filter = "blur(0px)";
+
+
+            front.constraints.clipDistance.near = 1;
+            front.constraints.clipDistance.far = 8000
+
+            back.constraints.clipDistance.near = 0;
+            back.constraints.clipDistance.far = 0;
+
+            backStaggered.constraints.clipDistance.near = 0;
+            backStaggered.constraints.clipDistance.far = 0;
+
+            view.constraints.clipDistance.near = 0
+            view.constraints.clipDistance.far = 0
+        }
+    };
 });
