@@ -1,3 +1,6 @@
+Deprecating this branch now as it's core JS API 4.29
+https://developers.arcgis.com/javascript/latest/sample-code/custom-render-node-dof/
+
 # WebScene-Tilt-Shift
 Prototype app of adding tilt shift (depth of field) to webscenes.
 
